@@ -1,1 +1,1 @@
-code for array bug
+code for ARRAY_BUG
