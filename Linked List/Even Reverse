@@ -1,0 +1,56 @@
+Given a linked list A , reverse the order of all nodes at even positions.
+Problem Constraints
+1 <= Size of linked list <= 100000
+
+Input Format
+First and only argument is the head of the Linked-List A.
+
+Output Format
+Return the head of the new linked list.
+
+Example Input
+Input 1:
+
+A = 1 -> 2 -> 3 -> 4
+Input 2:
+
+A = 1 -> 2 -> 3
+
+
+Example Output
+Output 1:
+
+ 1 -> 4 -> 3 -> 2
+Output 2:
+
+ 1 -> 2 -> 3
+ 
+ 
+ Solution:
+ 
+ ListNode* Solution::solve(ListNode* A) {
+     stack <int> s;
+    ListNode *temp = A;
+     int count = 0;
+    while (temp)
+    {
+        count ++;
+        if (count%2==0)
+        {
+            s.push(temp->val);
+        }
+        temp = temp->next;
+    }
+    temp = A;
+    count =1;
+    while (temp!=NULL)
+    {
+        if(count%2==0){
+            temp->val=s.top();
+            s.pop();
+        }
+        temp = temp->next;
+        count++;
+    }
+    return A;
+}
