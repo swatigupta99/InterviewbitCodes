@@ -1,0 +1,61 @@
+You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+
+    342 + 465 = 807
+Make sure there are no trailing zeros in the output list
+So, 7 -> 0 -> 8 -> 0 is not a valid response even though the value is still 807.
+
+
+Solution:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ 
+ListNode* reverse(ListNode* head)
+{
+    ListNode *prev = NULL , *curr = head , *fur = head;
+    while (fur)
+    {
+        fur = fur->next;
+        curr->next = prev;
+        prev = curr;
+        curr = fur;
+        
+    }
+    return prev;
+}
+ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
+    int carry =0;
+    ListNode* head1 = new ListNode(0);
+    ListNode* temp = head1;
+    while (A or B or carry)
+    {
+        int num = 0;
+        if (A)
+        {
+            num+=A->val;
+        }
+        if (B)
+        {
+            num+=B->val;
+        }
+        num+=carry;
+        ListNode* nod = new ListNode(num%10);
+        carry = num/10;
+        temp->next = nod;
+        temp=temp->next;
+        if (A) A=A->next;
+        if (B) B=B->next;
+    }
+    temp = reverse(head1->next);
+    if (temp->val==0 && temp) temp=temp->next;
+    return head1->next;
+}
