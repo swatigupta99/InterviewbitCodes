@@ -1,3 +1,30 @@
+Given an sorted array A of size N. Find number of elements which are less than or equal to B.
+
+NOTE: Expected Time Complexity O(log N)
+
+
+
+Problem Constraints
+1 <= N <= 106
+
+1 <= A[i], B <= 109
+
+
+
+Input Format
+First agument is an integer array A of size N.
+
+Second argument is an integer B.
+
+
+
+Output Format
+Return an integer denoting the number of elements which are less than or equal to B.
+
+
+
+
+
 int Solution::searchInsert(vector<int> &A, int B) {
 int start = 0 , end = A.size() - 1;
     while (start <= end)
