@@ -1,0 +1,34 @@
+strstr - locate a substring ( needle ) in a string ( haystack ). 
+Try not to use standard library string functions for this question.
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Solution:
+
+int Solution::strStr(const string A, const string B) {  
+    bool flag=false;
+    int result =-1;
+    for(int i=0;i<A.size();i++)
+    {
+        int j=0;
+        int k=i;
+        if(A[k]==B[j])
+        {
+            while(A[k]==B[j] && k<A.size() && j<B.size())
+            {
+                k++;
+                j++;
+                if(j==B.size())
+                {
+                    flag=true;
+                    result = i;
+                    break;
+                }
+            }
+        }
+        if(flag)
+        break;
+    }
+    return result;
+    
+}
