@@ -1,0 +1,44 @@
+Given a string A consisting of lowercase characters.
+
+We need to tell minimum characters to be appended (insertion at end) to make the string A a palindrome.
+
+Solution:
+
+ bool ispalindrome (string A)
+{
+    int l = A.length();
+    int j = 0;
+    for(int i = 0, j = l - 1; i <= j; i++, j--) 
+    {
+        if(A[i]!=A[j])
+        {
+            return false;
+        }
+       
+    }
+    return true;
+    
+}
+
+int Solution::solve(string A) {
+    int count = 0,flag=0;
+    while (A.length()>0)
+    {
+        if (ispalindrome(A))
+        {
+            flag=1;
+            break;
+        }
+        else
+        {
+            count++;
+            A.erase(A.begin()+ 0);
+        }
+        
+    }
+    if (flag)
+    {
+        return count;
+    }
+    
+}
