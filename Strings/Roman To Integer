@@ -1,0 +1,113 @@
+Given a string A representing a roman numeral.
+Convert A into integer.
+
+A is guaranteed to be within the range from 1 to 3999.
+
+NOTE: Read more
+details about roman numerals at Roman Numeric System
+
+
+
+Input Format
+
+The only argument given is string A.
+Output Format
+
+Return an integer which is the integer verison of roman numeral string.
+For Example
+
+Input 1:
+    A = "XIV"
+Output 1:
+    14
+
+Input 2:
+    A = "XX"
+Output 2:
+    20
+    
+    
+Solution:
+
+
+int Solution::romanToInt(string A) {
+    vector<int> v;
+    int sum =0;
+    for (int i=0; i<A.length();i++ )
+    {
+        if (A[i]== 'X')
+        {
+            if (  A[i+1]== 'C' or A[i+1]=='L' or A[i+1]== 'M' or A[i+1]== 'D')
+            {   
+                v.push_back(-10);
+            }
+            else
+            {
+                v.push_back(10);
+            }
+        }
+        if (A[i]== 'V')
+        {
+            v.push_back(5);
+        }
+        if (A[i]== 'I')
+        {
+            if (A[i+1]=='V' or A[i+1]== 'X' or A[i+1]== 'C' or A[i+1]=='L' or A[i+1]== 'M' or A[i+1]== 'D')
+            {
+                v.push_back(-1);
+            }
+            else
+            {
+                v.push_back(1) ;
+            }
+        }
+        if (A[i]== 'L')
+        {
+            if (A[i+1]== 'C' or A[i+1]== 'D' or A[i+1]== 'M'  )
+            {
+               v.push_back(-50); 
+            }
+            else
+            {
+                v.push_back(50);
+            }
+        }
+        if (A[i]== 'C')
+        {
+            if (A[i+1]== 'D' or A[i+1]== 'M')
+            {
+                v.push_back(-100);
+            }
+            else
+            {
+                v.push_back(100);
+            }
+        }
+        if (A[i]== 'M')
+        {
+            v.push_back(1000);
+        }
+        if (A[i]== 'D')
+        
+        {
+            if (A[i+1]== 'M')
+            {
+                v.push_back(-500);
+            }
+            else
+            {
+                v.push_back(500); 
+            }
+        }
+        
+    }
+    for (int i=0; i<v.size();i++ )
+    {
+        sum += v[i];
+    }
+    return sum; 
+    
+}
+
+    
+    
