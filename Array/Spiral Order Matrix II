@@ -1,0 +1,86 @@
+Given an integer A, generate a square matrix filled with elements from 1 to A2 in spiral order.
+
+
+
+Input Format:
+
+The first and the only argument contains an integer, A.
+Output Format:
+
+Return a 2-d matrix of size A x A satisfying the spiral order.
+Constraints:
+
+1 <= A <= 1000
+Examples:
+
+Input 1:
+    A = 3
+
+Output 1:
+    [   [ 1, 2, 3 ],
+        [ 8, 9, 4 ],
+        [ 7, 6, 5 ]   ]
+
+Input 2:
+    4
+
+Output 2:
+    [   [1, 2, 3, 4],
+        [12, 13, 14, 5],
+        [11, 16, 15, 6],
+        [10, 9, 8, 7]   ]
+        
+        
+Solution:
+
+vector<vector<int> > Solution::generateMatrix(int A) {
+    vector<vector<int>>result_matrix(A,vector<int>(A,0));
+    long long int r1 = 0 ;
+    long long int r2 = A-1 ;
+    long long int c1 = 0 ;
+    long long int c2 = A-1 ;
+    int num = 1;
+    while (r1<=r2 && c1<=c2)
+    {
+        for (int i = c1; i<=c2; i++)
+        {
+            result_matrix[r1][i] = num;
+            
+            num++;
+        }
+        r1++;
+        for (int i =r1 ; i<=r2; i++)
+        {
+            result_matrix[i][c2] = num;
+            
+            num++;
+        }
+        c2--;
+        for (int i = c2; i>=c1; i--)
+        
+        {
+            if (r1<=r2)
+            {
+            result_matrix[r2][i] = num;
+           
+            num++;
+            }
+        }
+        r2--;
+        for (int i = r2; i>=r1; i--)
+        {
+            if (c1<=c2)
+            {
+            result_matrix[i][c1] = num;
+           
+            num++;
+            }
+        }
+        c1++;
+    }
+    return result_matrix;
+    
+    
+}
+
+        
