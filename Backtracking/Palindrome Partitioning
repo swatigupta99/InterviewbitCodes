@@ -1,0 +1,66 @@
+Given a string s, partition s such that every string of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+For example, given s = "aab",
+Return
+
+  [
+    ["a","a","b"]
+    ["aa","b"],
+  ]
+ Ordering the results in the answer : Entry i will come before Entry j if :
+len(Entryi[0]) < len(Entryj[0]) OR
+(len(Entryi[0]) == len(Entryj[0]) AND len(Entryi[1]) < len(Entryj[1])) OR
+*
+*
+*
+(len(Entryi[0]) == len(Entryj[0]) AND … len(Entryi[k] < len(Entryj[k]))
+In the given example,
+["a", "a", "b"] comes before ["aa", "b"] because len("a") < len("aa")
+
+Solution:
+
+ bool isPalindrome( string A )
+{
+    string rev = A;
+    reverse( rev.begin(), rev.end() );
+    
+    return (rev == A);
+}
+
+void allPartitions( vector<string> temp, string A, vector<vector<string>> &result )
+{
+    if( A.empty() )
+    {
+        result.push_back( temp );
+        return;
+    }
+    for( int i=1; i<=A.length(); ++i)
+    {
+        string first_part = A.substr( 0, i );
+        string second_part = A.substr( i );
+        
+        if( isPalindrome( first_part ) )
+        {
+            vector<string> s = temp;
+            s.push_back( first_part );
+            allPartitions( s, second_part, result );
+        }
+    }
+}
+
+
+
+
+vector<vector<string> > Solution::partition(string A) {
+    vector<vector<string>> result;
+    vector<string>temp;
+    
+    allPartitions( temp, A, result );
+    
+    sort( result.begin(), result.end() );
+    
+    return result;
+    
+}
