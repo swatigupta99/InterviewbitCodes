@@ -1,0 +1,48 @@
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+
+
+The digit 0 maps to 0 itself.
+The digit 1 maps to 1 itself.
+
+Input: Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+Make sure the returned strings are lexicographically sorted.
+
+Solution:
+
+String Mapping [] = {"0", "1" , "abc" ,"def" , "ghi" , "jkl" , "mno" ,"pqrs" , "tuv" , "wxyz"};
+
+
+void combinations (string A , int index , string curr, vector<string> &ans)
+{
+    if (index == A.length())
+    {
+        ans.push_back(curr);
+        return;
+    }
+    int digit = A[index] - '0';
+    for(int i = 0 ; i<Mapping[digit].length() ; i++)
+    {
+        curr.push_back(Mapping[digit][i]);
+        combinations(A, index + 1, curr , ans);
+        curr.pop_back();
+    }
+    return;
+    
+}
+
+
+
+
+
+vector<string> Solution::letterCombinations(string A) {
+    vector<string> ans;
+    string curr = "";
+    int index = 0;
+    combinations(A , 0  ,curr , ans);
+    return ans;
+    
+}
