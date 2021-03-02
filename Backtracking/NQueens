@@ -1,0 +1,79 @@
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+N Queens: Example 1
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens’ placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+For example,
+There exist two distinct solutions to the 4-queens puzzle:
+
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+
+
+Solution:
+
+bool check(int r, int c, int n, vector<string>& cur) {
+   
+    for(int i = 0; i < r; i++) 
+    {
+        if(cur[i][c] == 'Q') 
+        {
+            return false;
+        }
+    }
+    for(int d = 1; r-d >= 0 && c-d >= 0; d++) 
+    {
+        if(cur[r-d][c-d] == 'Q')
+        {
+            return false;
+        }
+    }
+    for(int d = 1; r-d >= 0 && c+d < n; d++) 
+    {
+        if(cur[r-d][c+d] == 'Q')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void solve(int n, int r, vector<vector<string>>& res, vector<string>& cur) {
+    if(r == n) {
+        res.push_back(cur);
+        return;
+    }
+    for(int c = 0; c < n; c++) {
+        if(check(r, c, n, cur)) {
+            cur[r][c] = 'Q';
+            solve(n, r+1, res, cur);
+            cur[r][c] = '.';
+        }
+    }
+}
+
+
+
+
+
+
+vector<vector<string> > Solution::solveNQueens(int A) {
+    string empty = "";
+    for(int i = 0; i < A; i++) empty += '.';
+    vector<string> cur(A, empty);
+    vector<vector<string>> res;
+    solve(A, 0, res, cur);
+    return res;
+}
