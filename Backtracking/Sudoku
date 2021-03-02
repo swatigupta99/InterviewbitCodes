@@ -1,0 +1,105 @@
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+Empty cells are indicated by the character '.'
+You may assume that there will be only one unique solution.
+
+Example :
+
+For the above given diagrams, the corresponding input to your program will be
+
+[[53..7....], [6..195...], [.98....6.], [8...6...3], [4..8.3..1], [7...2...6], [.6....28.], [...419..5], [....8..79]]
+and we would expect your program to modify the above array of array of characters to
+
+[[534678912], [672195348], [198342567], [859761423], [426853791], [713924856], [961537284], [287419635], [345286179]]
+
+
+Solution:
+
+bool findempty(int &row, int &col, vector<vector<char> > &A)
+{
+    for(row=0;row<A.size();row++)
+    {
+        for(col=0;col<A[row].size();col++)
+        {
+            if(A[row][col]=='.')
+                return true;
+        }
+    }
+    return false;
+}
+
+bool isSafe(int row,int col,int num, vector<vector<char> > &A)
+{
+    
+    
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[row][i]==('0'+num))
+        {
+            return false;
+        }
+    }
+    
+    
+
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[i][col]==('0'+num))
+        {
+            return false;
+        }
+    }
+    
+    
+    
+    int block_row=row-(row%3);
+    int block_col=col-(col%3);
+    
+    for(int i=block_row;i<block_row+3;i++)
+    {
+        for(int j=block_col;j<block_col+3;j++)
+        {
+            if(A[i][j]==('0'+num))
+            {
+                return false;
+            }
+        }
+    }
+    
+   
+    
+    return true;
+    
+    
+}
+
+bool solve(vector<vector<char> > &A)
+{
+    int row,col;
+    
+    if(!findempty(row,col,A))
+    {
+        return true;
+    }
+    
+    
+    for(int num=1;num<=9;num++)
+    {
+        if(isSafe(row,col,num,A))
+        {
+            A[row][col]='0'+num;
+            
+            if(solve(A))
+                return true;
+            
+            A[row][col]='.';
+        }
+    }
+    return false;
+    
+}
+
+void Solution::solveSudoku(vector<vector<char> > &A) {
+    bool ans=solve(A);
+    return;
+}
+
