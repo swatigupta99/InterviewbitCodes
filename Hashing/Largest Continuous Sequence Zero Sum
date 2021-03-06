@@ -1,0 +1,64 @@
+Find the largest continuous sequence in a array which sums to zero.
+
+Example:
+
+
+Input:  {1 ,2 ,-2 ,4 ,-4}
+Output: {2 ,-2 ,4 ,-4}
+
+
+Solution:
+
+vector<int> Solution::lszero(vector<int> &A) {
+    int sum = 0;
+    vector<int> copy;
+    copy.push_back(0);
+    
+    for(int i=0; i<A.size(); i++){
+        
+        sum = sum + A[i];
+        copy.push_back(sum);
+        
+    }
+    
+    int maxkey = INT_MIN;
+    unordered_map<int, vector<int>> map;
+    int maxsize = -1;
+    
+    for(int i=0; i<copy.size(); i++){
+        
+        if(map.find(copy[i])==map.end()){
+            
+            map[copy[i]].push_back(i);
+            map[copy[i]].push_back(0);
+
+        }
+        else{
+            map[copy[i]][1] = i;
+            
+            if(map[copy[i]][1] - map[copy[i]][0] > maxsize){
+                
+                maxsize = map[copy[i]][1] - map[copy[i]][0];
+                maxkey = copy[i];
+            }
+        }
+        
+    }
+    
+    
+    vector<int> ans;
+    if(maxkey==INT_MIN){
+        return ans;
+    }
+    int left = map[maxkey][0];
+    int right = map[maxkey][1]-1;
+    
+    
+    for(int i=left; i<=right; i++){
+        
+        ans.push_back(A[i]);
+        
+    }
+
+    return ans;
+}
