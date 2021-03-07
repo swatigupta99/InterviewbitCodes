@@ -1,0 +1,29 @@
+Given an unsorted array of integers, return a vector which contains only the unique elements.
+
+Examples:
+
+Input : arr[] = { 1, 2, 5, 1, 7, 2, 4, 2}
+Output : 1 2 5 7 4
+Explanation : {1, 2} appear more than one time.
+
+
+Solution:
+
+vector<int> Solution:: removeduplicates(vector<int>&A) {
+  vector<int>ans;
+  unordered_map<int,bool> seen;
+  for(int i=0; i<A.size();i++)
+  {
+    if(seen.count(A[i]) > 0)
+    { 
+      continue;
+    }
+    seen[A[i]] = true;
+    ans.push_back(A[i]);
+  }
+  return ans;
+}
+
+
+
+
