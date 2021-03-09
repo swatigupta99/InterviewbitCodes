@@ -1,0 +1,48 @@
+Given an array of strings, return all groups of strings that are anagrams. Represent a group by a list of integers representing the index in the original list. Look at the sample case for clarification.
+
+ Anagram : a word, phrase, or name formed by rearranging the letters of another, such as 'spar', formed from 'rasp' 
+ Note: All inputs will be in lower-case. 
+Example :
+
+Input : cat dog god tca
+Output : [[1, 4], [2, 3]]
+cat and tca are anagrams which correspond to index 1 and 4.
+dog and god are another set of anagrams which correspond to index 2 and 3.
+The indices are 1 based ( the first element has index 1 instead of index 0).
+
+
+Solution:
+
+vector<vector<int> > Solution::anagrams(const vector<string> &A) {
+    int i,j,k; int sum;
+    int size=A.size(); vector<int> len; vector<int>code;
+    bool* check=new bool[size];
+    for(i=0;i<size;i++)
+    {
+        check[i]=false;
+    }
+    for(i=0;i<size;i++)
+    {    j=0;sum=0;
+        while(A[i][j]!='\0')
+        {
+            sum=sum+(int)A[i][j]-96; j++;
+        }
+        code.push_back(sum);
+        len.push_back(j);
+    } vector <int> res;vector<vector<int> > sol;
+    for(i=0;i<size;i++)
+    { if(check[i]==true)
+    continue;
+        res.clear();
+        res.push_back(i+1);
+        for(j=i+1;j<size;j++)
+        { 
+            if(check[j]==false && len[i]==len[j] && code[i]==code[j])
+            {
+                check[j]=true; res.push_back(j+1);
+            }
+        }
+        sol.push_back(res);
+    }
+    return sol;
+}
