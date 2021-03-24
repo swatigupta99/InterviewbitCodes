@@ -1,0 +1,82 @@
+Given a binary tree, return the reverse level order traversal of its nodes values. (i.e, from left to right and from last level to starting level).
+
+
+
+Problem Constraints
+1 <= number of nodes <= 5 * 105
+
+1 <= node value <= 105
+
+
+
+Input Format
+First and only argument is a pointer to the root node of the Binary Tree, A.
+
+
+
+Output Format
+Return an integer array denoting the reverse level order traversal from left to right.
+
+
+
+Example Input
+Input 1:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Input 2:
+
+   1
+  / \
+ 6   2
+    /
+   3
+
+
+Example Output
+Output 1:
+
+ [15, 7, 9, 20, 3] 
+Output 2:
+
+ [3, 6, 2, 1]
+
+
+Solution:
+
+
+vector<int> Solution::solve(TreeNode* root) {
+    stack <TreeNode *> S;
+    queue <TreeNode *> Q;
+    Q.push(root);
+    
+    while (Q.empty() == false)
+    {
+        
+        root = Q.front();
+        Q.pop();
+        S.push(root);
+
+        
+        if (root->right)
+            Q.push(root->right); 
+
+        /* Enqueue left child */
+        if (root->left)
+            Q.push(root->left);
+    }
+
+    
+    vector<int> ans;
+    while (S.empty() == false)
+    {
+        root = S.top();
+        ans.push_back(root->val);
+        S.pop();
+    }
+    return ans;
+}
+
