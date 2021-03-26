@@ -1,0 +1,111 @@
+Given a Binary Tree A containing N nodes.
+
+You need to find the path from Root to a given node B.
+
+NOTE:
+
+No two nodes in the tree have same data values.
+You can assume that B is present in the tree A and a path always exists.
+
+
+Problem Constraints
+1 <= N <= 105
+
+1 <= Data Values of Each Node <= N
+
+1 <= B <= N
+
+
+
+Input Format
+First Argument represents pointer to the root of binary tree A.
+
+Second Argument is an integer B denoting the node number.
+
+
+
+Output Format
+Return an one-dimensional array denoting the path from Root to the node B in order.
+
+
+
+Example Input
+Input 1:
+
+ A =
+
+           1
+         /   \
+        2     3
+       / \   / \
+      4   5 6   7 
+
+
+B = 5
+
+Input 2:
+
+ A = 
+            1
+          /   \
+         2     3
+        / \ .   \
+       4   5 .   6
+
+
+B = 1
+
+
+
+
+Example Output
+Output 1:
+
+ [1, 2, 5]
+Output 2:
+
+ [1]
+
+
+
+
+
+
+Solution:
+
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<int> ans;
+bool flag = 0;
+
+void func1(TreeNode *A, int B, vector<int> C)
+{
+    if (flag || A == nullptr)
+    {
+        return;
+    }
+    C.push_back(A->val);
+    if (A->val == B)
+    {
+        ans = vector<int>(C);
+        flag = 1;
+    }
+    func1(A->left, B, C);
+    func1(A->right, B, C);
+}
+
+vector<int> Solution::solve(TreeNode* A, int B) {
+        ans = vector<int>(0);
+    flag = 0;
+    func1(A, B, {});
+    return ans;
+}
+
