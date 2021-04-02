@@ -1,0 +1,46 @@
+Given a binary tree, return the postorder traversal of its nodes’ values.
+
+Example :
+
+Given binary tree
+
+   1
+    \
+     2
+    /
+   3
+return [3,2,1].
+ 
+ 
+ Solution:
+ 
+ void solve(vector<int> &ans, TreeNode* A) {
+    if(A==NULL) {
+        return;
+    }
+    solve(ans, A->left);
+    solve(ans, A->right);
+    ans.push_back(A->val);
+}
+vector<int> Solution::postorderTraversal(TreeNode* A) {
+    
+    vector<int> ans;
+    if(A == NULL) 
+        return ans;
+    stack<TreeNode*> s;
+    s.push(A);
+    
+    while(s.size() ) {
+        TreeNode* prev = s.top();
+        ans.push_back(s.top()->val);
+        s.pop();
+        if(prev->left) {
+            s.push(prev->left);
+        }
+        if(prev->right) {
+            s.push(prev->right);
+        }
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
