@@ -1,0 +1,72 @@
+Given a Binary Tree denoted by root node A having integer value on nodes. You need to find maximum sum level in it.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 105
+
+1 <= value on nodes <= 105
+
+
+
+Input Format
+First and only argument is a root node of Binary Tree A.
+
+
+
+Output Format
+Return an integer denoting the maximum sum level in the tree.
+
+
+
+Example Input
+Input 1:
+
+ Tree:      4
+          /   \
+         2     5
+        / \   / \
+       1  3  2   6
+Input 2:
+
+ Tree:      1
+          /   \
+         2     3
+       /  \     \
+      4    5     8
+                / \
+               6   7  
+
+
+Example Output
+Output 1:
+
+ 12
+Output 2:
+
+ 17
+
+
+
+
+Solution:
+
+void check(TreeNode* A,vector<int>&v,int s)
+ {
+     if(A==NULL)
+     return;
+     if(v.size()>=s)
+     v[s-1]+=A->val;
+     else
+     v.push_back(A->val);
+     check(A->left,v,s+1);
+     check(A->right,v,s+1);
+ }
+int Solution::solve(TreeNode* A) {
+    vector<int>v;
+    check(A,v,1);
+    int m=INT_MIN;
+    for(int i=0;i<v.size();i++)
+      m=max(m,v[i]);
+      return m;
+}
