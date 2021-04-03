@@ -1,0 +1,54 @@
+Find shortest unique prefix to represent each word in the list.
+
+Example:
+
+Input: [zebra, dog, duck, dove]
+Output: {z, dog, du, dov}
+where we can see that
+zebra = z
+dog = dog
+duck = du
+dove = dov
+
+
+
+Solution:
+
+vector<string> Solution::prefix(vector<string> &A) 
+{
+    
+    vector<string> solution;
+    
+    for (int i = 0; i < A.size(); i++)
+    {
+        int necessaryChars = 1;
+        int maxNC = necessaryChars;
+        
+        for (int j = 0; j < A.size(); j++)
+        {
+            if (A[j].compare(A[i]) == 0)
+            {
+                continue;
+            }
+            for (int k = 0; k < A[j].length(); k++)
+            {
+                if (A[j][k] == A[i][k])
+                {
+                    necessaryChars++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (necessaryChars > maxNC)
+            {
+                maxNC = necessaryChars;
+            }
+            necessaryChars = 1;
+        }
+        
+        solution.push_back(A[i].substr(0, maxNC));
+    }
+    return solution;
+}
