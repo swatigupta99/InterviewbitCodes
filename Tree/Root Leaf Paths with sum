@@ -1,0 +1,49 @@
+Given a binary tree and a sum, find all root-to-leaf paths where each path’s sum equals the given sum.
+
+For example:
+Given the below binary tree and sum = 22,
+
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+return
+
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]
+
+Solution:
+
+void Solve(TreeNode *root, int remainingSum, vector<int> &curr, vector<vector<int> > &ret) {
+    if (root == NULL) return;
+
+    remainingSum -= root->val;
+    curr.push_back(root->val);
+
+     
+    if (root->left == NULL && root->right == NULL) {
+        if (remainingSum == 0) {
+            ret.push_back(curr);
+        }
+        curr.pop_back();
+        return;
+    }
+
+    
+    Solve(root->left, remainingSum, curr, ret);
+    Solve(root->right, remainingSum, curr, ret);
+    curr.pop_back();
+    return;
+}
+
+vector<vector<int> > Solution::pathSum(TreeNode *root, int sum) {
+    vector<vector<int> > ans;
+    vector<int> curr;
+    Solve(root, sum, curr, ans);
+    return ans;
+}
