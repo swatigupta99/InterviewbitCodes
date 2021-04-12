@@ -1,0 +1,47 @@
+There are N children standing in a line. Each child is assigned a rating value.
+
+You are giving candies to these children subjected to the following requirements:
+
+1. Each child must have at least one candy.
+2. Children with a higher rating get more candies than their neighbors.
+What is the minimum candies you must give?
+
+Input Format:
+
+The first and the only argument contains N integers in an array A.
+Output Format:
+
+Return an integer, representing the minimum candies to be given.
+
+
+Solution:
+
+int Solution::candy(vector<int> &A) {
+    
+    int sum =0;
+    vector<int>ans;
+    for(int i=0;i<A.size();i++)
+    {
+        ans.push_back(1);
+    }
+    
+    for(int i=A.size()-1;i>0;i--)
+    {
+       if(A[i-1]>A[i])
+       {
+           ans[i-1]=ans[i]+1;
+       }
+    }
+    for(int i=0;i<A.size()-1;i++)
+    {
+        if(A[i+1]>A[i])
+        {
+            ans[i+1]=max((ans[i]+1),ans[i+1]); 
+        }
+    }   
+    for(int i=0;i<ans.size();i++)
+    {
+        sum = sum + ans[i];
+    }
+    return sum;
+}
