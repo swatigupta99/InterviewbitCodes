@@ -1,2 +1,2 @@
 # InterviewbitCodes
-Codes for Github Problems
+Codes for Data Structure Problems
