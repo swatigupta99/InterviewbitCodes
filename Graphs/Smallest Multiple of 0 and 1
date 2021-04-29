@@ -1,0 +1,63 @@
+You are given an integer N. You have to find smallest multiple of N which consists of digits 0 and 1 only. Since this multiple could be large, return it in form of a string.
+
+Note:
+
+Returned string should not contain leading zeroes.
+For example,
+
+For N = 55, 110 is smallest multiple consisting of digits 0 and 1.
+For N = 2, 10 is the answer.
+
+
+Solution:
+
+queue<int> q;
+
+string Solution::multiple(int A) {
+    
+    
+    while(!q.empty()) {
+    	q.pop();
+    }
+    
+    int arr[A];
+    for(int i=0;i<A;i++)
+    { 
+      arr[i] = -1;
+    }
+
+    arr[1%A] = -2;
+    q.push(1%A);
+    while(!q.empty()) {
+        int curr = q.front(); q.pop();
+
+        if(!curr) break;
+        
+        int x = (curr*10) % A;
+        if(arr[x] == -1) {
+            arr[x] = curr;
+            q.push(x);
+        }
+        
+        x = ((curr*10)+1) % A;
+        if(arr[x] == -1) {
+            arr[x] = curr;
+            q.push(x);
+        }
+    }
+    
+    string res;
+    int curr = 0;
+    while(curr != -2) {
+        int x = arr[curr];
+
+        char ch = '1';
+        if((x != -2) && ((x*10) % A) == curr) ch = '0';
+        
+        result += ch;
+        curr = x;
+    }
+    reverse(res.begin(), res.end());
+    
+    return res;
+}
