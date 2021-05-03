@@ -1,0 +1,89 @@
+Given A and B you have to find all stepping numbers in range A to B.
+
+The stepping number:
+
+A number is called as a stepping number if the adjacent digits have a difference of 1.
+
+e.g. 123 is stepping number, but 358 is not a stepping number
+
+
+
+Input Format
+First argument is an integer A.
+
+Second argument is an integer B.
+
+
+
+Output Format
+Return a integer array sorted in ascending order denoting the stepping numbers between A and B.
+
+
+
+Example Input
+Input 1:
+
+ A = 10
+ B = 20
+
+
+Example Output
+Output 1:
+
+ [10, 12]
+
+
+Solution:
+
+
+void solve(vector<int> &ans,int A,int B,int length,int n)
+{
+    if(length - 1 == 0)
+    {
+        if(A <= n && n <= B)
+            ans.push_back(n);
+        return;
+    }
+    
+    int last_digit = n%10;
+    if(last_digit == 0)
+        solve(ans,A,B,length-1,n*10+1);
+    else if(last_digit == 9)
+        solve(ans,A,B,length-1,n*10+8);
+    else
+    {
+        solve(ans,A,B,length-1,n*10+last_digit+1);
+        solve(ans,A,B,length-1,n*10+last_digit-1);
+    }
+}
+
+vector<int> Solution::stepnum(int A, int B) {
+    int temp,l1=0,l2=0;
+    vector<int> ans;
+    temp = A;
+    while(temp>0)
+    {
+        temp=temp/10;
+        len1 += 1;
+    }
+    if(len1 == 0)
+        ans.push_back(0);
+    temp = B;
+    while(temp>0)
+    {
+        temp=temp/10;
+        len2 += 1;
+    }
+    
+    for(int i=l1;i<=l2;i++)
+    {
+        for(int j=1;j<10;j++)
+        {
+            if(i != 0)
+                solve(ans,A,B,i,j);
+        }
+    }
+    sort(ans.begin(),ans.end());
+    return ans;
+    
+}
