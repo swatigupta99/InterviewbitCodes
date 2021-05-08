@@ -1,0 +1,84 @@
+Given two words A and B, and a dictionary, C, find the length of shortest transformation sequence from A to B, such that:
+
+You must change exactly one character in every transformation.
+Each intermediate word must exist in the dictionary.
+Note:
+
+Return 0 if there is no such transformation sequence.
+All words have the same length.
+All words contain only lowercase alphabetic characters.
+
+
+Input Format:
+
+The first argument of input contains a string, A.
+The second argument of input contains a string, B.
+The third argument of input contains an array of strings, C.
+Output Format:
+
+Return an integer representing the minimum number of steps required to change string A to string B.
+Constraints:
+
+1 <= length(A), length(B), length(C[i]) <= 25
+1 <= length(C) <= 5e3
+Example :
+
+Input 1:
+    A = "hit"
+    B = "cog"
+    C = ["hot", "dot", "dog", "lot", "log"]
+
+Output 1:
+    5
+
+
+
+
+Solution:
+
+void transform(string temp,queue<string> &q,unordered_map<string,int> &mp,unordered_map<string,int> &vis)
+{
+    for(int i=0;i<temp.size();i++)
+    {
+        string s=temp;
+        for(int j=0;j<26;j++)
+        {
+            s[i]='a'+j;
+            if(mp.find(s)!=mp.end() && vis.find(s)==vis.end())
+            {
+                q.push(s);
+                vis[s]=1;
+            }
+        }
+    }
+}
+int Solution::solve(string A, string B, vector<string> &C) {
+    int steps=0;
+    if(A==B)return 0;
+    
+    unordered_map<string,int> mp;
+    for(auto x:C)
+    mp[x]=1;
+    
+    if(mp.find(B)==mp.end())
+    return steps;
+    
+    queue<string> q;
+    q.push(A);
+    unordered_map<string,int> vis;
+    vis[A]=1;
+    steps=1;
+    while(!q.empty())
+    {
+        int sz=q.size();
+        for(int i=0;i<sz;i++)
+        {
+            auto temp=q.front();
+            q.pop();
+            if(temp==B)return steps;
+            transform(temp,q,mp,vis);
+        }
+        steps++;
+    }
+    return steps;
+}
